@@ -1,0 +1,39 @@
+.outer-container {
+  padding: 20px;
+  background-color: white;
+  color: white;
+  font-family: "Comic Sans MS";
+}
+.roles {
+  width: 100%;
+  margin: 2px;
+}
+.cancel-btn {
+  margin-left: 10px;
+}
+.btn-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+}
+table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+mat-chip-set {
+  display: flex;
+  flex-wrap: wrap;
+}
+mat-chip {
+  margin: 4px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+mat-form-field {
+  color: white;
+  background-color: transparent;
+}
+mat-option span {
+  color: white;
+}

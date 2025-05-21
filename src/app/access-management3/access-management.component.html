@@ -1,0 +1,70 @@
+<div class="outer-container">
+  <table mat-table [dataSource]="users" class="mat-elevation-z1">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          [(ngModel)]="masterSelected"
+          (change)="toggleSelectAll($event.checked)"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let user">
+        <mat-checkbox [(ngModel)]="user.selected"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>User Name</th>
+      <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="roles">
+      <th mat-header-cell *matHeaderCellDef>Assign roles</th>
+      <td mat-cell *matCellDef="let user">
+        <mat-chip-set *ngIf="user.assignedRoles.length > 0">
+          <mat-chip
+            *ngFor="let role of user.assignedRoles"
+            [removable]="role.isAdditional"
+            (removed)="removeAssignedRole(user, role)"
+          >
+            {{ role.role }}
+            <mat-icon matChipRemove *ngIf="role.isAdditional">cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-set>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="add">
+      <th mat-header-cell *matHeaderCellDef>Add Additional Roles</th>
+      <td mat-cell *matCellDef="let user">
+        <mat-form-field appearance="outline" class="roles">
+          <mat-select
+            [formControl]="user.roleControl"
+            multiple
+            placeholder="Select roles"
+            (selectionChange)="onSelectRole(user)"
+          >
+            <mat-option
+              *ngFor="let role of getAvailableRoles(user)"
+              [value]="role"
+              >{{ role }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['select', 'name', 'roles', 'add']"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['select', 'name', 'roles', 'add']"
+    ></tr>
+  </table>
+  <div class="btn-container">
+    <button mat-stroked-button (click)="submit()">Submit</button>
+    <button mat-stroked-button class="cancel-btn">Cancel</button>
+  </div>
+</div>
